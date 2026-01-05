@@ -1,0 +1,4 @@
+name: hott-ai
+include: src
+depend:
+  standard-library
