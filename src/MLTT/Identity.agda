@@ -1,6 +1,5 @@
 module MLTT.Identity where
 
-open import Level using (Level)
 open import MLTT.Universe
 
 infix 4 _==_
@@ -22,6 +21,37 @@ transport :
   forall {ell ell'} {A : Type ell} (P : A -> Type ell') {x y}
   -> x == y -> P x -> P y
 transport P refl px = px
+
+-- | Transport along reflexivity is judgmentally the identity.
+transportRefl :
+  forall {ell ell'} {A : Type ell} (P : A -> Type ell') {x}
+  (px : P x) -> transport P refl px == px
+transportRefl P px = refl
+
+-- | Transport for constant families does not change the value.
+transportConst :
+  forall {ell ell'} {A : Type ell} {B : Type ell'} {x y : A}
+  (p : x == y) (b : B) -> transport (λ _ -> B) p b == b
+transportConst refl b = refl
+
+-- | Transport distributes over path concatenation.
+transportComp :
+  forall {ell ell'} {A : Type ell} (P : A -> Type ell')
+  {x y z : A} (p : x == y) (q : y == z) (px : P x)
+  -> transport P (p chain q) px == transport P q (transport P p px)
+transportComp P refl q px = refl
+
+-- | Transporting the result of a dependent function equals applying the
+-- function after transporting its argument.
+transportFun :
+  forall {ell ell1 ell2}
+    {A : Type ell}
+    {B : A -> Type ell1}
+    {C : A -> Type ell2}
+  (f : (x : A) -> B x -> C x)
+  {x y : A} (p : x == y) (bx : B x)
+  -> transport C p (f x bx) == f y (transport B p bx)
+transportFun f refl bx = refl
 
 -- | Symmetry of equality.
 sym :

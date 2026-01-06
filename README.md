@@ -8,6 +8,16 @@ Minimal Agda playground for experimenting with Martin-Lof Type Theory (MLTT) in 
 - `src/MLTT/Universe.agda` — simple wrappers around Agda universes with Type, Type0, Type1, Type2 helpers and a `levelJoin` alias.
 - `src/MLTT/PiSigma.agda` — basic Pi (dependent function) and Sigma (dependent pair) formers with projection helpers.
 - `src/MLTT/Identity.agda` — identity type with the J eliminator, transport, symmetry, transitivity, and congruence lemmas.
+- `src/MLTT/Unit.agda` — unit type with recursion/induction principles.
+- `src/MLTT/Empty.agda` — empty type and its eliminators.
+- `src/MLTT/Nat.agda` — natural numbers, recursion/induction, addition, and basic proofs about addition.
+- `src/MLTT/Bool.agda` — booleans, eliminators, conditionals, and logical connectives (`not`, `&&`, `||`).
+- `src/MLTT/List.agda` — polymorphic lists, folds, map/append/length, dependent `All`, non-empty view via Sigma + Bool.
+
+## Recent highlights
+
+- `MLTT.Identity`: transport helper lemmas (`transportRefl`, `transportConst`, `transportComp`, `transportFun`) for composing dependent proofs.
+- `MLTT.Nat`: addition right-identity phrased as a dependent family `RightId`, with `plusZeroRight` and a transport-compatible proof `plusZeroRightTransport`.
 
 ## Using the code
 
